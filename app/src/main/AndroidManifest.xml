@@ -20,13 +20,16 @@
         <activity
             android:name=".Settings"
             android:label="Settings" />
-        <activity android:name=".MultiplayerActivity"
-            android:parentActivityName=".AndroidTicTacToeActivity" >
+        <activity
+            android:name=".MultiplayerActivity"
+            android:parentActivityName=".AndroidTicTacToeActivity">
+
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".AndroidTicTacToeActivity" />
         </activity>
+        <activity android:name=".JoinActivity"></activity>
     </application>
 
 </manifest>
