@@ -17,6 +17,7 @@ import android.app.AlertDialog;
 
 public class AndroidTicTacToeActivity extends AppCompatActivity {
 
+
     private TicTacToeGame mGame;
     static final int DIALOG_QUIT_ID = 1;
     private SharedPreferences mPrefs;
@@ -129,6 +130,9 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
             case R.id.new_game:
                 startNewGame();
                 return true;
+            case R.id.multiplayer:
+                multiplayer();
+                return true;
             case R.id.settings:
                 startActivityForResult(new Intent(this, Settings.class), 0);
                 return true;
@@ -163,15 +167,18 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
         }
     }
 
-
-
     public void resetResults(){
         mComputerWins = 0;
         mHumanWins = 0;
         mTies = 0;
         displayScores();
     }
-    int selected;
+
+    public void multiplayer(){
+        Intent intent = new Intent(this, MultiplayerActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     protected Dialog onCreateDialog(int id) {
         Dialog dialog = null;
