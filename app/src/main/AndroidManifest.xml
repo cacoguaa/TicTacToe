@@ -9,14 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AndroidTicTacToeActivity">
-        </activity>
+        <activity android:name=".AndroidTicTacToeActivity"></activity>
         <!-- Allow the Settings activity to be launched -->
         <activity
             android:name=".Settings"
             android:label="Settings" />
         <activity
-            android:name=".MultiplayerActivity"
+            android:name=".CreateActivity"
             android:parentActivityName=".MainActivity">
 
             <!-- The meta-data tag is required if you support API level 15 and lower -->
@@ -40,6 +39,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MultiBoard"></activity>
     </application>
 
 </manifest>

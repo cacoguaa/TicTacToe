@@ -178,7 +178,7 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
     }
 
     public void multiplayer(){
-        Intent intent = new Intent(this, MultiplayerActivity.class);
+        Intent intent = new Intent(this, CreateActivity.class);
         startActivity(intent);
     }
 

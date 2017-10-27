@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void multiplayer(View view){
-        Intent intent = new Intent(this, MultiplayerActivity.class);
+        Intent intent = new Intent(this, CreateActivity.class);
         startActivity(intent);
     }
 

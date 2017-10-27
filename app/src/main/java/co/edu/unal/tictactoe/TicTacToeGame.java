@@ -200,4 +200,12 @@ public class TicTacToeGame {
         return mBoard[i];
     }
 
+    @Override
+    public String toString() {
+        String board = "";
+        for(int i = 0; i < 9;i++){
+            board = board + mBoard[i];
+        }
+        return board;
+    }
 }
