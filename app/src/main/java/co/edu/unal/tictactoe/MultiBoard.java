@@ -24,6 +24,7 @@ public class MultiBoard extends AppCompatActivity {
     DatabaseReference refGame;
     private int turn;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +89,7 @@ public class MultiBoard extends AppCompatActivity {
                     else if( winner-1 == playerId)
                         mInfoTextView.setText("Ganaste");
                     else mInfoTextView.setText("Perdiste");
+                    finish();
                 } else {
                     if(playerId == 1 && playerId == turn) {
                         setMove(TicTacToeGame.HUMAN_PLAYER, pos);

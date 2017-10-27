@@ -44,17 +44,19 @@ public class JoinActivity extends ListActivity {
     public void getGames(){
         games = new ArrayList<>();
         gameNames = new ArrayList<>();
-        refDatabase.addValueEventListener(new ValueEventListener() {
+        refDatabase.orderByChild("started").equalTo(false).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 games.clear();
                 gameNames.clear();
-                Log.d("snap",dataSnapshot.getValue().toString());
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    GameStruc game = postSnapshot.getValue(GameStruc.class);
-                    game.setId(postSnapshot.getKey().toString());
-                    gameNames.add(game.getPlayer1() + " " + game.getName());
-                    games.add(game);
+                if(dataSnapshot.exists()) {
+                    Log.d("dad", dataSnapshot.getValue().toString());
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        GameStruc game = postSnapshot.getValue(GameStruc.class);
+                        game.setId(postSnapshot.getKey().toString());
+                        gameNames.add(game.getPlayer1() + " " + game.getName());
+                        games.add(game);
+                    }
                 }
                 showGames();
             }

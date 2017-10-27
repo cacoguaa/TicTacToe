@@ -15,13 +15,14 @@ import com.google.firebase.database.ValueEventListener;
 
 public class CreateActivity extends AppCompatActivity {
 
+    public boolean create;
     private DatabaseReference refDatabase = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
-
+        create = false;
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
 
@@ -29,20 +30,23 @@ public class CreateActivity extends AppCompatActivity {
 
     public void send(View view) {
         // Write a message to the database
-        EditText name  = (EditText)findViewById(R.id.name);
-        EditText pass  = (EditText)findViewById(R.id.password);
-        EditText user = (EditText)findViewById(R.id.username);
-        DatabaseReference newgame = refDatabase.push();
-        GameStruc game = new GameStruc(name.getText().toString(), pass.getText().toString(),false,user.getText().toString());
-        String id = newgame.getKey().toString();
-        newgame.child("id").setValue(id);
-        newgame.child("name").setValue(game.name);
-        newgame.child("pass").setValue(game.pass);
-        newgame.child("started").setValue(game.started);
-        newgame.child("board").setValue(game.board);
-        newgame.child("turn").setValue(game.turn);
-        newgame.child("player1").setValue(game.player1);
-        waitForRival(id);
+        if(!create) {
+            create = true;
+            EditText name = (EditText) findViewById(R.id.name);
+            EditText pass = (EditText) findViewById(R.id.password);
+            EditText user = (EditText) findViewById(R.id.username);
+            DatabaseReference newgame = refDatabase.push();
+            GameStruc game = new GameStruc(name.getText().toString(), pass.getText().toString(), false, user.getText().toString());
+            String id = newgame.getKey().toString();
+            newgame.child("id").setValue(id);
+            newgame.child("name").setValue(game.name);
+            newgame.child("pass").setValue(game.pass);
+            newgame.child("started").setValue(game.started);
+            newgame.child("board").setValue(game.board);
+            newgame.child("turn").setValue(game.turn);
+            newgame.child("player1").setValue(game.player1);
+            waitForRival(id);
+        }
     }
     DatabaseReference refGame;
     public void waitForRival(String id){
@@ -67,6 +71,7 @@ public class CreateActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MultiBoard.class);
         intent.putExtra("id",refGame.getKey().toString());
         intent.putExtra("player", 1);
+        create = false;
         startActivity(intent);
     }
 }
