@@ -133,6 +133,9 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
             case R.id.multiplayer:
                 multiplayer();
                 return true;
+            case R.id.join:
+                join();
+                return true;
             case R.id.settings:
                 startActivityForResult(new Intent(this, Settings.class), 0);
                 return true;
@@ -176,6 +179,11 @@ public class AndroidTicTacToeActivity extends AppCompatActivity {
 
     public void multiplayer(){
         Intent intent = new Intent(this, MultiplayerActivity.class);
+        startActivity(intent);
+    }
+
+    public void join(){
+        Intent intent = new Intent(this, JoinActivity.class);
         startActivity(intent);
     }
 

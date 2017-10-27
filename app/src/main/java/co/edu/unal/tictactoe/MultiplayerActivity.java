@@ -12,7 +12,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class MultiplayerActivity extends AppCompatActivity {
 
-    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference refDatabase = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +27,23 @@ public class MultiplayerActivity extends AppCompatActivity {
     public void send(View view) {
         // Write a message to the database
         EditText name  = (EditText)findViewById(R.id.name);
-        mDatabase.push().setValue(name.getText().toString());
+        EditText pass  = (EditText)findViewById(R.id.password);
+        DatabaseReference newgame = refDatabase.child(name.getText().toString());
+        GameStruc game = new GameStruc(pass.getText().toString(),false);
+        newgame.child("pass").setValue(game.pass);
+        newgame.child("started").setValue(game.started);
+        newgame.child("board").setValue(game.board);
+        finish();
+    }
+
+    public class GameStruc{
+        String pass;
+        String board = "000000000";
+        boolean started;
+
+        public GameStruc(String pass, boolean started){
+            this.pass = pass;
+            this.started = started;
+        }
     }
 }
