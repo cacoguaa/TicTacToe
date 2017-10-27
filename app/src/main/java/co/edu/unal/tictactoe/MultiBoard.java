@@ -19,7 +19,7 @@ public class MultiBoard extends AppCompatActivity {
     GameStruc game;
     private TicTacToeGame mGame;
     private BoardView mBoardView;
-    int player;
+    int playerId;
     private TextView mInfoTextView;
     DatabaseReference refGame;
     private int turn;
@@ -38,7 +38,8 @@ public class MultiBoard extends AppCompatActivity {
         mInfoTextView = (TextView) findViewById(R.id.information);
         Intent intent = getIntent();
         String gameid = getIntent().getStringExtra("id");
-        player = getIntent().getIntExtra("player",-1);
+        playerId = getIntent().getIntExtra("player",-1);
+        Log.d("player",String.valueOf(playerId));
         refGame = FirebaseDatabase.getInstance().getReference(gameid);
         refGame.addValueEventListener(new ValueEventListener() {
             @Override
@@ -53,7 +54,8 @@ public class MultiBoard extends AppCompatActivity {
                 turn = Integer.parseInt(dataSnapshot.child("turn").getValue().toString());
                 Log.d("Cambio table", board);
                 Log.d("turn", String.valueOf(turn));
-                if(turn == player ){
+                Log.d("player",String.valueOf(playerId));
+                if(turn == playerId ){
                     mInfoTextView.setText("Es tu turno");
                 }
                 else {
@@ -83,14 +85,14 @@ public class MultiBoard extends AppCompatActivity {
                     Log.d("winner",String.valueOf(winner));
                     if( winner == 1)
                         mInfoTextView.setText("Empate");
-                    else if( winner-1 == player)
+                    else if( winner-1 == playerId)
                         mInfoTextView.setText("Ganaste");
                     else mInfoTextView.setText("Perdiste");
                 } else {
-                    if(player == 1 && player == turn) {
+                    if(playerId == 1 && playerId == turn) {
                         setMove(TicTacToeGame.HUMAN_PLAYER, pos);
                     }
-                    else if(player == turn){
+                    else if(playerId == turn){
                         setMove(TicTacToeGame.COMPUTER_PLAYER, pos);
                     }
                 }
@@ -99,13 +101,20 @@ public class MultiBoard extends AppCompatActivity {
         };
     };
 
-    private boolean setMove(char player, int location) {
-        Log.d(String.valueOf(player), String.valueOf(location));
+    private boolean setMove(char player_char, int location) {
+
         Log.d("Actual board",mGame.toString());
-        if (mGame.setMove(player, location)) {
-            //if(player == 0) refGame.child("turn").setValue(1);
-            //else  refGame.child("turn").setValue(0);
-            mBoardView.invalidate();   // Redraw the board
+        if (mGame.setMove(player_char, location)) {
+
+            char[] boards = mGame.getBoardState();
+            String board = "";
+            for(int i = 0; i < 9; i++){
+                board = board + boards[i];
+            }
+            refGame.child("board").setValue(board);
+            Log.d("new board",board);
+            if(playerId == 1) refGame.child("turn").setValue(2);
+            else  refGame.child("turn").setValue(1);
             return true;
         }
         return false;

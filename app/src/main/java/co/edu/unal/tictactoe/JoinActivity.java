@@ -88,7 +88,7 @@ public class JoinActivity extends ListActivity {
         DatabaseReference refGame = FirebaseDatabase.getInstance().getReference(gameToJoin.getId());
         refGame.child("id").setValue(gameToJoin.getId());
         refGame.child("player2").setValue(gameToJoin.getPlayer2());
-
+        refGame.child("started").setValue(true);
         gameSelected = gameToJoin;
 
         Log.d("position", String.valueOf(position));
