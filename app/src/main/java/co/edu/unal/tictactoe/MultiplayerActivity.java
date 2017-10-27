@@ -36,14 +36,4 @@ public class MultiplayerActivity extends AppCompatActivity {
         finish();
     }
 
-    public class GameStruc{
-        String pass;
-        String board = "000000000";
-        boolean started;
-
-        public GameStruc(String pass, boolean started){
-            this.pass = pass;
-            this.started = started;
-        }
-    }
 }
